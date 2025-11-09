@@ -18,10 +18,25 @@ const KEYS = [
 export default function App() {
   const [digits, setDigits] = useState("");
 
-  // 🔄 Limpiar el número al abrir la app
-  useEffect(() => {
-    setDigits("");
-  }, []);
+// 🔄 Limpiar el número al abrir o volver a la app
+useEffect(() => {
+  const clearDigits = () => setDigits("");
+
+  // Limpia al montar (primera vez)
+  clearDigits();
+
+  // También limpia cada vez que la app vuelve al frente
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      clearDigits();
+    }
+  });
+
+  // Limpieza del listener al desmontar
+  return () => {
+    document.removeEventListener("visibilitychange", clearDigits);
+  };
+}, []);
 
   const handlePress = (value) => {
     if (value === "⌫") {
