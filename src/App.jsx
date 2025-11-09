@@ -1,4 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+export default function App() {
+  const [digits, setDigits] = useState("");
+
+  useEffect(() => {
+    // Al montar la app, limpia el número
+    setDigits("");
+  }, []);
 
 const KEYS = [
   { label: "1", sub: "" },
