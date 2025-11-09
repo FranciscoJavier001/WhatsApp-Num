@@ -1,12 +1,4 @@
-import { useEffect, useState } from "react";
-
-export default function App() {
-  const [digits, setDigits] = useState("");
-
-  useEffect(() => {
-    // Al montar la app, limpia el número
-    setDigits("");
-  }, []);
+import { useState, useEffect } from "react";
 
 const KEYS = [
   { label: "1", sub: "" },
@@ -26,15 +18,22 @@ const KEYS = [
 export default function App() {
   const [digits, setDigits] = useState("");
 
-const handlePress = (value) => {
-  if (value === "⌫") {
-    handleDelete();
-    return;
-  }
-  if (!/^\d$/.test(value)) return;
-  if (digits.length >= 10) return;
-  setDigits((prev) => prev + value);
-};
+  // 🔄 Limpiar el número al abrir la app
+  useEffect(() => {
+    setDigits("");
+  }, []);
+
+  const handlePress = (value) => {
+    if (value === "⌫") {
+      handleDelete();
+      return;
+    }
+
+    if (!/^\d$/.test(value)) return;
+    if (digits.length >= 10) return;
+
+    setDigits((prev) => prev + value);
+  };
 
   const handleDelete = () => {
     setDigits((prev) => prev.slice(0, -1));
@@ -65,17 +64,19 @@ const handlePress = (value) => {
     <div className="app-root">
       <div className="dialer-container">
         <div className="display-area">
-          <div className="country-prefix"></div>
+          <div className="country-prefix">WhatsApp Num</div>
           <div className="display-digits">{formatDigits() || "••• ••• ••••"}</div>
         </div>
 
         <div className="keypad-grid">
           {KEYS.map((key) => (
             <button
-  key={key.label}
-  className={`keypad-button ${key.type === "delete" ? "delete-key" : ""}`}
-  onClick={() => handlePress(key.label)}
->
+              key={key.label}
+              className={`keypad-button ${
+                key.type === "delete" ? "delete-key" : ""
+              }`}
+              onClick={() => handlePress(key.label)}
+            >
               <span className="keypad-label">{key.label}</span>
               {key.sub && <span className="keypad-sub">{key.sub}</span>}
             </button>
@@ -83,19 +84,15 @@ const handlePress = (value) => {
         </div>
 
         <div className="send-button-wrapper">
-  <button
-    className={`send-button ${canSend ? "send-button-active" : "send-button-disabled"}`}
-    onClick={handleSendWhatsApp}
-  >
-    <span className="send-emoji">💭</span>
-  </button>
-</div>
-
-<div className="delete-button-wrapper">
-  <button className="delete-button">
-  </button>
-</div>
-
+          <button
+            className={`send-button ${
+              canSend ? "send-button-active" : "send-button-disabled"
+            }`}
+            onClick={handleSendWhatsApp}
+          >
+            <span className="send-emoji">💭</span>
+          </button>
+        </div>
 
         <div className="hint-text">
         </div>
