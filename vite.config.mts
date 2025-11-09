@@ -4,5 +4,5 @@ import react from "@vitejs/plugin-react-swc";
 // ⚠️ cambia "wa-dialer-pwa" por el nombre EXACTO de tu repo en GitHub
 export default defineConfig({
   plugins: [react()],
-  base: "https://github.com/FranciscoJavier001/WhatsApp-Num",
+  base: "WhatsApp-Num",
 });
