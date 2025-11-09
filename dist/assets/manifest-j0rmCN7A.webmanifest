@@ -1,6 +1,6 @@
 {
   "name": "WhatsApp Dialer MX",
-  "short_name": "WA Dialer",
+  "short_name": "WhatsApp Num",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
